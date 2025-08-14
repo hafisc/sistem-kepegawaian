@@ -101,13 +101,7 @@ class User extends Authenticatable
         return $this->role === 'user';
     }
 
-    /**
-     * Check if user is camat
-     */
-    public function isCamat(): bool
-    {
-        return $this->role === 'camat';
-    }
+
 
     /**
      * Check if user is active

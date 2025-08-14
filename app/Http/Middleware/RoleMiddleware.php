@@ -33,8 +33,6 @@ class RoleMiddleware
             // Redirect to appropriate dashboard based on user's actual role
             if ($user->isAdmin()) {
                 return redirect()->route('admin.dashboard');
-            } elseif ($user->isCamat()) {
-                return redirect()->route('camat.dashboard');
             } else {
                 return redirect()->route('user.dashboard');
             }

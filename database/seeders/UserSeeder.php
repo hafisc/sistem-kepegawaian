@@ -36,18 +36,7 @@ class UserSeeder extends Seeder
             'nip' => '198501012010011001',
         ]);
 
-        // Create Camat User
-        User::create([
-            'name' => 'Camat Demo',
-            'username' => 'camat',
-            'email' => 'camat@kepegawaian.com',
-            'password' => Hash::make('camat123'),
-            'role' => 'camat',
-            'is_active' => true,
-            'employee_type' => 'PNS',
-            'position' => 'Camat',
-            'nip' => '197505052000031002',
-        ]);
+
 
         // Create additional sample employees
         User::create([

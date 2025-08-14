@@ -48,7 +48,7 @@
 
 #### 🏛️ **Multi-Role Management**
 - 👨‍💼 **Admin**: Kontrol penuh sistem
-- 🏢 **Camat**: Manajemen tingkat kecamatan
+
 - 👤 **User**: Akses personal dashboard
 
 #### 📊 **Pelaporan & Analytics**
@@ -125,7 +125,7 @@ Pastikan sistem Anda memiliki:
 | Role | Username | Password | Akses |
 |------|----------|----------|-------|
 | 👨‍💼 **Admin** | `admin` | `admin123` | Full system access |
-| 🏢 **Camat** | `camat` | `camat123` | District management |
+
 | 👤 **User** | `user` | `user123` | Personal dashboard |
 
 ---
@@ -162,7 +162,7 @@ Pastikan sistem Anda memiliki:
 graph TD
     A[🔐 Authentication] --> B{Role Check}
     B -->|Admin| C[👨‍💼 Admin Dashboard]
-    B -->|Camat| D[🏢 Camat Dashboard]
+
     B -->|User| E[👤 User Dashboard]
     
     C --> F[📊 System Management]
@@ -214,8 +214,7 @@ graph TD
 ### 👨‍💼 Admin Dashboard
 *Comprehensive system overview with real-time statistics*
 
-### 🏢 Camat Interface
-*District-level management with approval workflows*
+
 
 ### 👤 User Profile
 *Personal dashboard with document management*

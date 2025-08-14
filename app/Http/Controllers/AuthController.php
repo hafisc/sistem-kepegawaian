@@ -87,8 +87,6 @@ class AuthController extends Controller
         
         if ($user->isAdmin()) {
             return redirect()->route('admin.dashboard');
-        } elseif ($user->isCamat()) {
-            return redirect()->route('camat.dashboard');
         } else {
             return redirect()->route('user.dashboard');
         }

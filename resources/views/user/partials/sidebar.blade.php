@@ -16,27 +16,14 @@
                 <span class="font-medium">Dashboard</span>
             </a>
 
-            <a href="{{ route('user.profile') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors {{ request()->routeIs('user.profile*') ? 'bg-blue-100 text-blue-700 border-r-4 border-blue-500' : '' }}">
-                <i class="fas fa-user w-5 h-5 mr-3"></i>
-                <span class="font-medium">Profil Saya</span>
+            <a href="{{ route('user.employees') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors {{ request()->routeIs('user.employees') ? 'bg-blue-100 text-blue-700 border-r-4 border-blue-500' : '' }}">
+                <i class="fas fa-users w-5 h-5 mr-3"></i>
+                <span class="font-medium">Data Pegawai</span>
             </a>
 
-            <!-- Divider -->
-            <div class="border-t border-gray-200 my-4"></div>
-
-            <!-- Information Section -->
-            <div class="px-4 py-2">
-                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider">Informasi</h3>
-            </div>
-
-            <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
-                <i class="fas fa-info-circle w-5 h-5 mr-3"></i>
-                <span class="font-medium">Bantuan</span>
-            </a>
-
-            <a href="#" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors">
-                <i class="fas fa-book w-5 h-5 mr-3"></i>
-                <span class="font-medium">Panduan</span>
+            <a href="{{ route('user.transfers') }}" class="flex items-center px-4 py-3 text-gray-700 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-colors {{ request()->routeIs('user.transfers') ? 'bg-blue-100 text-blue-700 border-r-4 border-blue-500' : '' }}">
+                <i class="fas fa-exchange-alt w-5 h-5 mr-3"></i>
+                <span class="font-medium">Data Mutasi</span>
             </a>
         </nav>
 

@@ -18,11 +18,20 @@ class Transfer extends Model
         'employee_id',
         'from_village_id',
         'to_village_id',
+        'from_unit',
+        'to_unit',
         'transfer_date',
         'effective_date',
+        'sk_number',
+        'sk_date',
+        'position_before',
+        'position_after',
         'reason',
         'notes',
         'status',
+        'transfer_type',
+        'sk_file',
+        'supporting_docs',
     ];
 
     /**
@@ -33,6 +42,7 @@ class Transfer extends Model
     protected $casts = [
         'transfer_date' => 'date',
         'effective_date' => 'date',
+        'sk_date' => 'date',
     ];
 
     /**
