@@ -2,10 +2,10 @@
 
 # 🏢 Sistem Kepegawaian
 
-### *Sistem Manajemen Kepegawaian Modern & Terintegrasi*
+### *Sistem Manajemen Kepegawaian Modern dengan Mutasi & Riwayat Jabatan*
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
+  <img src="https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel">
   <img src="https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
   <img src="https://img.shields.io/badge/MySQL-8.0+-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
   <img src="https://img.shields.io/badge/TailwindCSS-3.x-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white" alt="Tailwind">
@@ -13,7 +13,7 @@
 
 <p align="center">
   <img src="https://img.shields.io/badge/Status-Production%20Ready-success?style=flat-square" alt="Status">
-  <img src="https://img.shields.io/badge/Version-1.0.0-blue?style=flat-square" alt="Version">
+  <img src="https://img.shields.io/badge/Version-2.0.0-blue?style=flat-square" alt="Version">
   <img src="https://img.shields.io/badge/License-MIT-green?style=flat-square" alt="License">
 </p>
 
@@ -23,7 +23,7 @@
 
 ## 📋 Tentang Sistem
 
-**Sistem Kepegawaian** adalah aplikasi web modern yang dirancang untuk mengelola data kepegawaian secara komprehensif dan efisien. Sistem ini menyediakan solusi terintegrasi untuk manajemen pegawai, transfer/mutasi, dan pelaporan dengan antarmuka yang intuitif dan responsif.
+**Sistem Kepegawaian** adalah aplikasi web modern yang dirancang khusus untuk mengelola data kepegawaian dengan fokus pada sistem mutasi dan riwayat jabatan. Sistem ini menyediakan solusi terintegrasi untuk manajemen pegawai PNS, PPPK, dan NON ASN dengan workflow mutasi yang komprehensif dan tracking riwayat jabatan yang detail.
 
 ### ✨ Fitur Utama
 
@@ -33,29 +33,31 @@
 
 #### 👥 **Manajemen Pegawai**
 - 📝 Data pegawai lengkap (PNS, PPPK, NON ASN)
-- 🎓 Integrasi data pendidikan
-- 📄 Upload dokumen (foto, SK)
+- 🎓 Integrasi data pendidikan & golongan
+- 📄 Upload dokumen (foto, SK, ijazah)
 - 📊 Status kepegawaian real-time
+- 🔍 Filter & pencarian advanced
 
-#### 🔄 **Sistem Transfer & Mutasi**
-- 📋 Pengajuan transfer online
-- ✅ Workflow persetujuan
-- 📈 Tracking status transfer
-- 🏛️ Manajemen antar desa/unit
+#### 🔄 **Sistem Mutasi Terintegrasi**
+- 📋 Workflow mutasi masuk otomatis
+- 📝 Riwayat mutasi komprehensif
+- 🏛️ Deteksi mutasi intra/inter kecamatan
+- ⚡ Auto-redirect setelah input pegawai PNS
 
 </td>
 <td width="50%">
 
-#### 🏛️ **Multi-Role Management**
-- 👨‍💼 **Admin**: Kontrol penuh sistem
+#### 📋 **Riwayat Jabatan**
+- 🏢 Tracking posisi & jabatan
+- 📅 Timeline karir pegawai
+- ✏️ CRUD riwayat jabatan
+- 🔗 Terintegrasi dengan data pegawai
 
-- 👤 **User**: Akses personal dashboard
-
-#### 📊 **Pelaporan & Analytics**
-- 📈 Dashboard statistik real-time
-- 📋 Laporan komprehensif
-- 🔔 Sistem notifikasi
-- 📱 Responsive design
+#### 📊 **Pelaporan & Notifikasi**
+- 📈 Dashboard mutasi real-time
+- 📋 Laporan pegawai & mutasi
+- 🔔 Sistem notifikasi terintegrasi
+- 📱 UI responsif modern
 
 </td>
 </tr>
@@ -86,8 +88,9 @@ Pastikan sistem Anda memiliki:
 
 2. **Install Dependencies**
    ```bash
-   composer install
-   
+   composer install --no-dev
+   npm install
+   npm run build
    ```
 
 3. **Environment Setup**
@@ -125,7 +128,6 @@ Pastikan sistem Anda memiliki:
 | Role | Username | Password | Akses |
 |------|----------|----------|-------|
 | 👨‍💼 **Admin** | `admin` | `admin123` | Full system access |
-
 | 👤 **User** | `user` | `user123` | Personal dashboard |
 
 ---
@@ -139,42 +141,49 @@ Pastikan sistem Anda memiliki:
 ├── 👤 Personal Info (NIP, NIK, Gender, etc.)
 ├── 🏢 Employment Info (Position, Rank, Type)
 ├── 🎓 Education Info (Level, Major, Year)
-└── 📄 Documents (Photo, SK Files)
+└── 📄 Documents (Photo, SK, Ijazah Files)
 
-📋 Educations
-├── 🎓 Education Levels (SD - S3)
-└── 📝 Descriptions
+📋 Transfers (Mutasi)
+├── 🔄 Mutasi Masuk/Keluar
+├── 📝 Riwayat Mutasi
+├── 📍 Unit Asal & Tujuan
+└── 📄 Dokumen Pendukung
 
-🔄 Transfer Types
-├── 📋 Transfer Categories
-└── 🔧 Approval Requirements
+🏢 Position Histories (Riwayat Jabatan)
+├── 📋 Posisi & Jabatan
+├── 📅 Periode Jabatan
+├── 🏛️ Unit Kerja
+└── 📝 Keterangan
 
-🏛️ Villages
-├── 📍 Location Data
-└── 👥 Employee Assignments
+📚 Master Data
+├── 🎓 Educations (Tingkat Pendidikan)
+├── 🏅 Grades (Golongan)
+├── 👑 Ranks (Pangkat)
+├── 🕌 Religions (Agama)
+└── 🏛️ Villages (Desa/Unit)
 ```
 
-### 🔐 Role-Based Access Control
+### 🔄 Workflow Mutasi
 
 <div align="center">
 
 ```mermaid
 graph TD
-    A[🔐 Authentication] --> B{Role Check}
-    B -->|Admin| C[👨‍💼 Admin Dashboard]
-
-    B -->|User| E[👤 User Dashboard]
+    A[👥 Tambah Pegawai PNS] --> B{Jenis Pegawai}
+    B -->|PNS| C[📋 Form Mutasi Masuk]
+    B -->|PPPK/NON ASN| D[✅ Selesai]
     
-    C --> F[📊 System Management]
-    C --> G[👥 User Management]
-    C --> H[📋 Education/Transfer Types]
+    C --> E[💾 Simpan Mutasi Masuk]
+    E --> F[📝 Form Riwayat Mutasi]
+    F --> G[💾 Simpan Riwayat]
+    G --> H[🔄 Kembali ke Daftar Pegawai]
     
-    D --> I[🏛️ Village Management]
-    D --> J[👥 Employee Oversight]
-    D --> K[🔄 Transfer Approval]
-    
-    E --> L[📱 Personal Profile]
-    E --> M[📄 Document Access]
+    I[👤 Kelola Pegawai] --> J[📋 Aksi Pegawai]
+    J --> K[👁️ Detail]
+    J --> L[📜 Riwayat Jabatan]
+    J --> M[🔄 Riwayat Mutasi]
+    J --> N[➡️ Mutasi Baru]
+    J --> O[✏️ Edit]
 ```
 
 </div>
@@ -209,15 +218,19 @@ graph TD
 <div align="center">
 
 ### 🔐 Login Page
-*Modern authentication with animated background*
+*Modern authentication dengan role-based access*
 
 ### 👨‍💼 Admin Dashboard
-*Comprehensive system overview with real-time statistics*
+*Dashboard komprehensif dengan statistik mutasi real-time*
 
+### 👥 Manajemen Pegawai
+*Interface lengkap dengan aksi mutasi dan riwayat jabatan*
 
+### 🔄 Workflow Mutasi
+*Sistem mutasi terintegrasi dengan auto-redirect*
 
-### 👤 User Profile
-*Personal dashboard with document management*
+### 📋 Riwayat Jabatan
+*Tracking karir pegawai dengan timeline lengkap*
 
 </div>
 
@@ -235,10 +248,11 @@ Kami menyambut kontribusi dari komunitas! Berikut cara berkontribusi:
 
 ### 📝 Development Guidelines
 
-- 🧪 Tulis unit tests untuk fitur baru
-- 📚 Update dokumentasi jika diperlukan
+- 🧪 Test fitur mutasi dan riwayat jabatan
+- 📚 Update dokumentasi untuk workflow baru
 - 🎨 Ikuti coding standards Laravel
-- 🔍 Pastikan code review passed
+- 🔍 Pastikan validasi form mutasi
+- 🔄 Test auto-redirect setelah input PNS
 
 ---
 
@@ -248,10 +262,10 @@ Kami menyambut kontribusi dari komunitas! Berikut cara berkontribusi:
 
 ### 🆘 Butuh Bantuan?
 
-📧 **Email**: support@kepegawaian.com  
-📱 **WhatsApp**: +62 xxx-xxxx-xxxx  
-🌐 **Website**: https://kepegawaian.com  
-📖 **Documentation**: https://docs.kepegawaian.com  
+📧 **Email**: hafisc@kepegawaian.com  
+📱 **GitHub**: https://github.com/hafisc  
+🌐 **Repository**: https://github.com/hafisc/sistem-kepegawaian  
+📖 **Issues**: https://github.com/hafisc/sistem-kepegawaian/issues  
 
 ### 🐛 Bug Reports
 
@@ -275,10 +289,18 @@ MIT License - Bebas digunakan untuk proyek komersial dan non-komersial
 
 ### 🌟 Jika project ini membantu, berikan ⭐ star!
 
-**Made with ❤️ for Indonesian Government Institutions**
+**Made with ❤️ for Modern Employee Management**
+
+### 🚀 Fitur Terbaru v2.0
+- ✅ Sistem mutasi terintegrasi
+- ✅ Riwayat jabatan komprehensif  
+- ✅ Auto-redirect workflow PNS
+- ✅ Upload dokumen multi-format
+- ✅ Filter dan pencarian advanced
+- ✅ UI/UX responsif modern
 
 ---
 
-*© 2025 Sistem Kepegawaian. All rights reserved.*
+*© 2025 Sistem Kepegawaian v2.0. All rights reserved.*
 
 </div>
