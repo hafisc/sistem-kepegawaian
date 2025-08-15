@@ -345,11 +345,11 @@ classDiagram
         +markAsRead()
     }
     
-    User ||--o{ Transfer : "has many"
-    User ||--o{ PositionHistory : "has many"
-    User ||--o{ Notification : "receives"
-    User }o--|| Education : "has education level"
-    User }o--|| Grade : "has grade"
+    User "1" o-- "many" Transfer : has many
+    User "1" o-- "many" PositionHistory : has many
+    User "1" o-- "many" Notification : receives
+    User "1" -- "1" Education : education level
+    User "1" -- "1" Grade : grade
 ```
 
 </div>
