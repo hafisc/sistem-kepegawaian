@@ -5,7 +5,6 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VillageController;
-use App\Http\Controllers\TransferController;
 use App\Http\Controllers\MutasiController;
 use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SystemController;
@@ -15,6 +14,7 @@ use App\Http\Controllers\TransferTypeController;
 use App\Http\Controllers\GradeController;
 use App\Http\Controllers\RankController;
 use App\Http\Controllers\ReligionController;
+use App\Http\Controllers\PositionHistoryController;
 
 
 // Redirect root to login page
@@ -58,15 +58,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/mutasi/{user}/riwayat', [MutasiController::class, 'showRiwayatMutasi'])->name('mutasi.riwayat');
     Route::post('/mutasi/riwayat', [MutasiController::class, 'storeRiwayatMutasi'])->name('mutasi.riwayat.store');
 
-    // Transfer Management
-    Route::get('/transfers', [TransferController::class, 'index'])->name('transfers');
-    Route::get('/transfers/create', [TransferController::class, 'create'])->name('transfers.create');
-    Route::post('/transfers', [TransferController::class, 'store'])->name('transfers.store');
-    Route::get('/transfers/{transfer}', [TransferController::class, 'show'])->name('transfers.show');
-    Route::get('/transfers/{transfer}/edit', [TransferController::class, 'edit'])->name('transfers.edit');
-    Route::put('/transfers/{transfer}', [TransferController::class, 'update'])->name('transfers.update');
-    Route::delete('/transfers/{transfer}', [TransferController::class, 'destroy'])->name('transfers.delete');
-    Route::patch('/transfers/{transfer}/status', [TransferController::class, 'updateStatus'])->name('transfers.status');
     
     // Reports Management
     Route::get('/reports', [ReportsController::class, 'index'])->name('reports');
@@ -125,6 +116,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::post('/religions', [ReligionController::class, 'store'])->name('religions.store');
     Route::put('/religions/{religion}', [ReligionController::class, 'update'])->name('religions.update');
     Route::delete('/religions/{religion}', [ReligionController::class, 'destroy'])->name('religions.destroy');
+    
+    // Position History Management
+    Route::get('/users/{user}/position-history', [PositionHistoryController::class, 'index'])->name('position-history.index');
+    Route::get('/users/{user}/position-history/create', [PositionHistoryController::class, 'create'])->name('position-history.create');
+    Route::post('/users/{user}/position-history', [PositionHistoryController::class, 'store'])->name('position-history.store');
+    Route::get('/users/{user}/position-history/{positionHistory}/edit', [PositionHistoryController::class, 'edit'])->name('position-history.edit');
+    Route::put('/users/{user}/position-history/{positionHistory}', [PositionHistoryController::class, 'update'])->name('position-history.update');
+    Route::delete('/users/{user}/position-history/{positionHistory}', [PositionHistoryController::class, 'destroy'])->name('position-history.destroy');
 });
 
 // User Routes

@@ -221,6 +221,15 @@
                                     <a href="{{ route('admin.users.show', $user) }}" class="text-green-600 hover:text-green-900 transition-colors" title="Detail">
                                         <i class="fas fa-eye"></i>
                                     </a>
+                                    <a href="{{ route('admin.position-history.index', $user) }}" class="text-purple-600 hover:text-purple-900 transition-colors" title="Riwayat Jabatan">
+                                        <i class="fas fa-history"></i>
+                                    </a>
+                                    <a href="{{ route('admin.mutasi.index') }}?user_id={{ $user->id }}" class="text-orange-600 hover:text-orange-900 transition-colors" title="Riwayat Mutasi">
+                                        <i class="fas fa-exchange-alt"></i>
+                                    </a>
+                                    <a href="{{ route('admin.mutasi.masuk', $user) }}" class="text-teal-600 hover:text-teal-900 transition-colors" title="Mutasi">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </a>
                                     <a href="{{ route('admin.users.edit', $user) }}" class="text-blue-600 hover:text-blue-900 transition-colors" title="Edit">
                                         <i class="fas fa-edit"></i>
                                     </a>

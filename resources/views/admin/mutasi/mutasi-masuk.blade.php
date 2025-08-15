@@ -122,10 +122,10 @@
             </div>
             
             <div class="mt-4">
-                <label for="reason" class="block text-sm font-medium text-gray-700 mb-2">Alasan Mutasi *</label>
-                <textarea id="reason" name="reason" rows="3" required 
+                <label for="reason" class="block text-sm font-medium text-gray-700 mb-2">Alasan Mutasi</label>
+                <textarea id="reason" name="reason" rows="3" 
                           class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                          placeholder="Alasan dilakukan mutasi">{{ old('reason') }}</textarea>
+                          placeholder="Alasan dilakukan mutasi (opsional)">{{ old('reason') }}</textarea>
             </div>
             
             <div class="mt-4">

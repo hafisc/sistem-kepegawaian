@@ -43,6 +43,7 @@ class User extends Authenticatable
         'work_unit',
         'start_date',
         'appointment_date',
+        'village_id',
         // Education Information
         'education_id',
         'education_major',
@@ -50,6 +51,10 @@ class User extends Authenticatable
         // Documents and Files
         'photo',
         'sk_file',
+        'scan_ktp',
+        'scan_kk',
+        'scan_sk',
+        'tanda_tangan_sk',
         'documents',
         // Status and Metadata
         'employment_status',
@@ -128,6 +133,30 @@ class User extends Authenticatable
     }
 
     /**
+     * Get user's village
+     */
+    public function village()
+    {
+        return $this->belongsTo(\App\Models\Village::class);
+    }
+
+    /**
+     * Get user's position histories
+     */
+    public function positionHistories()
+    {
+        return $this->hasMany(\App\Models\PositionHistory::class)->orderBy('start_date', 'desc');
+    }
+
+    /**
+     * Get user's active position
+     */
+    public function activePosition()
+    {
+        return $this->hasOne(\App\Models\PositionHistory::class)->where('status', 'aktif')->latest('start_date');
+    }
+
+    /**
      * Get user's photo URL
      */
     public function getPhotoUrlAttribute()
@@ -145,6 +174,39 @@ class User extends Authenticatable
     {
         if ($this->sk_file) {
             return asset('storage/documents/' . $this->sk_file);
+        }
+        return null;
+    }
+
+    /**
+     * Get user's KTP scan URL
+     */
+    public function getScanKtpUrlAttribute()
+    {
+        if ($this->scan_ktp) {
+            return asset('storage/documents/' . $this->scan_ktp);
+        }
+        return null;
+    }
+
+    /**
+     * Get user's KK scan URL
+     */
+    public function getScanKkUrlAttribute()
+    {
+        if ($this->scan_kk) {
+            return asset('storage/documents/' . $this->scan_kk);
+        }
+        return null;
+    }
+
+    /**
+     * Get user's SK scan URL
+     */
+    public function getScanSkUrlAttribute()
+    {
+        if ($this->scan_sk) {
+            return asset('storage/documents/' . $this->scan_sk);
         }
         return null;
     }

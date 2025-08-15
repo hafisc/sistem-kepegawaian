@@ -72,7 +72,7 @@
                 </div>
                 <div class="ml-4">
                     <h3 class="text-lg font-semibold text-gray-800">Total Mutasi</h3>
-                    <p class="text-2xl font-bold text-orange-600">{{ $totalTransfers }}</p>
+                    <p class="text-2xl font-bold text-gray-900">{{ $totalMutasi }}</p>
                 </div>
             </div>
         </div>
@@ -89,9 +89,9 @@
                         <span class="text-gray-700">Pending</span>
                     </div>
                     <div class="flex items-center">
-                        <span class="text-lg font-semibold text-gray-800 mr-2">{{ $pendingTransfers }}</span>
+                        <span class="text-lg font-semibold text-gray-800 mr-2">{{ $pendingMutasi }}</span>
                         <div class="w-24 bg-gray-200 rounded-full h-2">
-                            <div class="bg-yellow-400 h-2 rounded-full" style="width: {{ $totalTransfers > 0 ? ($pendingTransfers / $totalTransfers) * 100 : 0 }}%"></div>
+                            <div class="bg-yellow-400 h-2 rounded-full" style="width: {{ $totalMutasi > 0 ? ($pendingMutasi / $totalMutasi) * 100 : 0 }}%"></div>
                         </div>
                     </div>
                 </div>
@@ -102,9 +102,9 @@
                         <span class="text-gray-700">Approved</span>
                     </div>
                     <div class="flex items-center">
-                        <span class="text-lg font-semibold text-gray-800 mr-2">{{ $approvedTransfers }}</span>
+                        <span class="text-lg font-semibold text-gray-800 mr-2">{{ $approvedMutasi }}</span>
                         <div class="w-24 bg-gray-200 rounded-full h-2">
-                            <div class="bg-green-400 h-2 rounded-full" style="width: {{ $totalTransfers > 0 ? ($approvedTransfers / $totalTransfers) * 100 : 0 }}%"></div>
+                            <div class="bg-green-400 h-2 rounded-full" style="width: {{ $totalMutasi > 0 ? ($approvedMutasi / $totalMutasi) * 100 : 0 }}%"></div>
                         </div>
                     </div>
                 </div>
@@ -115,9 +115,9 @@
                         <span class="text-gray-700">Completed</span>
                     </div>
                     <div class="flex items-center">
-                        <span class="text-lg font-semibold text-gray-800 mr-2">{{ $completedTransfers }}</span>
+                        <span class="text-lg font-semibold text-gray-800 mr-2">{{ $completedMutasi }}</span>
                         <div class="w-24 bg-gray-200 rounded-full h-2">
-                            <div class="bg-blue-400 h-2 rounded-full" style="width: {{ $totalTransfers > 0 ? ($completedTransfers / $totalTransfers) * 100 : 0 }}%"></div>
+                            <div class="bg-blue-400 h-2 rounded-full" style="width: {{ $totalMutasi > 0 ? ($completedMutasi / $totalMutasi) * 100 : 0 }}%"></div>
                         </div>
                     </div>
                 </div>

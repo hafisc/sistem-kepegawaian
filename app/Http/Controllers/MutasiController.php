@@ -119,7 +119,7 @@ class MutasiController extends Controller
             'sk_date' => 'required|date',
             'position_before' => 'nullable|string|max:255',
             'position_after' => 'nullable|string|max:255',
-            'reason' => 'required|string',
+            'reason' => 'nullable|string',
             'notes' => 'nullable|string',
             'sk_file' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
             'supporting_docs' => 'nullable|file|mimes:pdf,jpg,jpeg,png|max:5120',
@@ -162,6 +162,16 @@ class MutasiController extends Controller
         // Update user's work unit if different
         if ($user->work_unit !== $request->to_unit) {
             $user->update(['work_unit' => $request->to_unit]);
+        }
+
+        // Check if mutation is within same district (keep status active)
+        // For intra-district mutations, employee status remains active
+        $fromDistrict = $this->extractDistrict($request->from_unit);
+        $toDistrict = $this->extractDistrict($request->to_unit);
+        
+        if ($fromDistrict === $toDistrict) {
+            // Intra-district mutation - keep employee active
+            $user->update(['employment_status' => 'Aktif']);
         }
 
         return redirect()->route('admin.mutasi.riwayat', $user->id)
@@ -231,5 +241,34 @@ class MutasiController extends Controller
 
         return redirect()->route('admin.users')
             ->with('success', 'Data pegawai PNS berhasil ditambahkan lengkap dengan mutasi masuk dan riwayat mutasi.');
+    }
+
+    /**
+     * Extract district from unit name for comparison
+     * This is a simple implementation - can be enhanced based on naming conventions
+     */
+    private function extractDistrict($unitName)
+    {
+        // Simple logic to extract district/kecamatan from unit name
+        // This can be enhanced based on your specific naming conventions
+        
+        // Common patterns: "Kecamatan X", "Desa Y Kecamatan X", etc.
+        if (preg_match('/kecamatan\s+([^,\s]+)/i', $unitName, $matches)) {
+            return strtolower(trim($matches[1]));
+        }
+        
+        // If no kecamatan found, assume it's a village and extract potential district
+        // You might want to have a mapping table for this in production
+        $parts = explode(' ', strtolower($unitName));
+        
+        // Look for common district indicators
+        foreach ($parts as $index => $part) {
+            if (in_array($part, ['kec', 'kecamatan']) && isset($parts[$index + 1])) {
+                return $parts[$index + 1];
+            }
+        }
+        
+        // Default: return the unit name itself for exact matching
+        return strtolower(trim($unitName));
     }
 }

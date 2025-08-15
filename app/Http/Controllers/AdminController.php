@@ -149,7 +149,11 @@ class AdminController extends Controller
                 'education_major' => 'nullable|string|max:255',
                 'graduation_year' => 'nullable|integer|min:1950|max:' . date('Y'),
                 'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+                'scan_ktp' => 'nullable|file|mimes:pdf,jpeg,png,jpg,gif|max:2048',
+                'scan_kk' => 'nullable|file|mimes:pdf,jpeg,png,jpg,gif|max:2048',
+                'scan_sk' => 'nullable|file|mimes:pdf,jpeg,png,jpg,gif|max:10240',
                 'sk_file' => 'nullable|file|mimes:pdf,jpeg,png,jpg,gif|max:5120',
+                'tanda_tangan_sk' => 'nullable|string|max:255',
                 'employment_status' => 'nullable|in:Aktif,Cuti,Pensiun,Mutasi,Nonaktif',
                 'notes' => 'nullable|string',
                 'village_id' => 'required|exists:villages,id',
@@ -180,21 +184,36 @@ class AdminController extends Controller
 
         $user = User::create($userData);
 
-        // Jika PNS maka arahkan ke form Mutasi Masuk
-        if ($user->employee_type === 'PNS') {
-            return redirect()->route('admin.mutasi.masuk', $user->id)
-                ->with('success', 'Data pegawai berhasil disimpan. Silakan lengkapi Mutasi Masuk.');
-        }
-
-        // Handle file uploads
+        // Handle file uploads BEFORE redirect
         if ($request->hasFile('photo')) {
             $photoPath = $request->file('photo')->store('photos', 'public');
             $user->update(['photo' => $photoPath]);
         }
 
+        if ($request->hasFile('scan_ktp')) {
+            $ktpPath = $request->file('scan_ktp')->store('documents', 'public');
+            $user->update(['scan_ktp' => $ktpPath]);
+        }
+
+        if ($request->hasFile('scan_kk')) {
+            $kkPath = $request->file('scan_kk')->store('documents', 'public');
+            $user->update(['scan_kk' => $kkPath]);
+        }
+
+        if ($request->hasFile('scan_sk')) {
+            $skPath = $request->file('scan_sk')->store('documents', 'public');
+            $user->update(['scan_sk' => $skPath]);
+        }
+
         if ($request->hasFile('sk_file')) {
-            $skPath = $request->file('sk_file')->store('documents', 'public');
-            $user->update(['sk_file' => $skPath]);
+            $skFilePath = $request->file('sk_file')->store('documents', 'public');
+            $user->update(['sk_file' => $skFilePath]);
+        }
+
+        // Jika PNS maka arahkan ke form Mutasi Masuk
+        if ($user->employee_type === 'PNS') {
+            return redirect()->route('admin.mutasi.masuk', $user->id)
+                ->with('success', 'Data pegawai berhasil disimpan. Silakan lengkapi Mutasi Masuk.');
         }
 
         // Create notification
@@ -288,7 +307,7 @@ class AdminController extends Controller
         if ($request->hasFile('photo')) {
             // Delete old photo if exists
             if ($user->photo) {
-                \Storage::disk('public')->delete($user->photo);
+                Storage::disk('public')->delete($user->photo);
             }
             $photoPath = $request->file('photo')->store('photos', 'public');
             $user->update(['photo' => $photoPath]);
@@ -296,7 +315,7 @@ class AdminController extends Controller
 
         if ($request->hasFile('scan_ktp')) {
             if ($user->scan_ktp) {
-                \Storage::disk('public')->delete($user->scan_ktp);
+                Storage::disk('public')->delete($user->scan_ktp);
             }
             $ktpPath = $request->file('scan_ktp')->store('documents', 'public');
             $user->update(['scan_ktp' => $ktpPath]);
@@ -304,7 +323,7 @@ class AdminController extends Controller
 
         if ($request->hasFile('scan_kk')) {
             if ($user->scan_kk) {
-                \Storage::disk('public')->delete($user->scan_kk);
+                Storage::disk('public')->delete($user->scan_kk);
             }
             $kkPath = $request->file('scan_kk')->store('documents', 'public');
             $user->update(['scan_kk' => $kkPath]);
@@ -312,7 +331,7 @@ class AdminController extends Controller
 
         if ($request->hasFile('scan_sk')) {
             if ($user->scan_sk) {
-                \Storage::disk('public')->delete($user->scan_sk);
+                Storage::disk('public')->delete($user->scan_sk);
             }
             $skPath = $request->file('scan_sk')->store('documents', 'public');
             $user->update(['scan_sk' => $skPath]);
