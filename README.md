@@ -190,6 +190,335 @@ graph TD
 
 ---
 
+## 📊 System Analysis & Design
+
+### 🎯 Use Case Diagram
+
+<div align="center">
+
+```mermaid
+graph TB
+    subgraph "Sistem Kepegawaian"
+        subgraph "Admin Functions"
+            UC1[Kelola Data Pegawai]
+            UC2[Proses Mutasi Masuk]
+            UC3[Kelola Riwayat Mutasi]
+            UC4[Kelola Riwayat Jabatan]
+            UC5[Generate Laporan]
+            UC6[Kelola Master Data]
+            UC7[Kelola Notifikasi]
+        end
+        
+        subgraph "User Functions"
+            UC8[Lihat Profile]
+            UC9[Update Profile]
+            UC10[Lihat Riwayat Mutasi]
+            UC11[Lihat Riwayat Jabatan]
+        end
+    end
+    
+    Admin[👨‍💼 Admin] --> UC1
+    Admin --> UC2
+    Admin --> UC3
+    Admin --> UC4
+    Admin --> UC5
+    Admin --> UC6
+    Admin --> UC7
+    
+    User[👤 User/Pegawai] --> UC8
+    User --> UC9
+    User --> UC10
+    User --> UC11
+    
+    UC2 -.-> UC3
+    UC1 -.-> UC4
+```
+
+</div>
+
+### 📋 Activity Diagram - Proses Mutasi PNS
+
+<div align="center">
+
+```mermaid
+graph TD
+    Start([🚀 Mulai]) --> A1[📝 Input Data Pegawai PNS]
+    A1 --> A2{Validasi Data}
+    A2 -->|❌ Invalid| A3[⚠️ Tampilkan Error]
+    A3 --> A1
+    A2 -->|✅ Valid| A4[💾 Simpan Data Pegawai]
+    A4 --> A5[🔄 Auto Redirect ke Form Mutasi Masuk]
+    A5 --> A6[📋 Isi Form Mutasi Masuk]
+    A6 --> A7{Validasi Mutasi}
+    A7 -->|❌ Invalid| A8[⚠️ Tampilkan Error Mutasi]
+    A8 --> A6
+    A7 -->|✅ Valid| A9[💾 Simpan Data Mutasi Masuk]
+    A9 --> A10{Cek Jenis Mutasi}
+    A10 -->|Intra-Kecamatan| A11[✅ Set Status Aktif]
+    A10 -->|Inter-Kecamatan| A12[⏳ Set Status Sesuai Aturan]
+    A11 --> A13[🔄 Redirect ke Form Riwayat Mutasi]
+    A12 --> A13
+    A13 --> A14[📝 Isi Riwayat Mutasi]
+    A14 --> A15{Validasi Riwayat}
+    A15 -->|❌ Invalid| A16[⚠️ Tampilkan Error Riwayat]
+    A16 --> A14
+    A15 -->|✅ Valid| A17[💾 Simpan Riwayat Mutasi]
+    A17 --> A18[🔔 Kirim Notifikasi]
+    A18 --> A19[🔄 Redirect ke Daftar Pegawai]
+    A19 --> End([🏁 Selesai])
+```
+
+</div>
+
+### 🏗️ Class Diagram
+
+<div align="center">
+
+```mermaid
+classDiagram
+    class User {
+        +id: int
+        +name: string
+        +username: string
+        +email: string
+        +nip: string
+        +nik: string
+        +employee_type: enum
+        +position: string
+        +rank: string
+        +work_unit: string
+        +is_active: boolean
+        +photo: string
+        +login()
+        +updateProfile()
+        +uploadDocument()
+    }
+    
+    class Transfer {
+        +id: int
+        +user_id: int
+        +from_unit: string
+        +to_unit: string
+        +transfer_date: date
+        +reason: string
+        +status: enum
+        +supporting_docs: string
+        +createMutasi()
+        +updateStatus()
+        +generateReport()
+    }
+    
+    class PositionHistory {
+        +id: int
+        +user_id: int
+        +position: string
+        +unit: string
+        +start_date: date
+        +end_date: date
+        +notes: text
+        +addPosition()
+        +updatePosition()
+        +getTimeline()
+    }
+    
+    class Education {
+        +id: int
+        +level: string
+        +description: string
+        +getEducationLevels()
+    }
+    
+    class Grade {
+        +id: int
+        +code: string
+        +name: string
+        +getGrades()
+    }
+    
+    class Notification {
+        +id: int
+        +user_id: int
+        +title: string
+        +message: text
+        +is_read: boolean
+        +send()
+        +markAsRead()
+    }
+    
+    User ||--o{ Transfer : "has many"
+    User ||--o{ PositionHistory : "has many"
+    User ||--o{ Notification : "receives"
+    User }o--|| Education : "has education level"
+    User }o--|| Grade : "has grade"
+```
+
+</div>
+
+### 🗄️ Entity Relationship Diagram (ERD)
+
+<div align="center">
+
+```mermaid
+erDiagram
+    USERS {
+        int id PK
+        string name
+        string username UK
+        string email UK
+        string nip UK
+        string nik UK
+        enum employee_type
+        string position
+        string rank
+        string work_unit
+        boolean is_active
+        string photo
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    TRANSFERS {
+        int id PK
+        int user_id FK
+        string from_unit
+        string to_unit
+        date transfer_date
+        string reason
+        enum status
+        string supporting_docs
+        text notes
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    POSITION_HISTORIES {
+        int id PK
+        int user_id FK
+        string position
+        string unit
+        date start_date
+        date end_date
+        text notes
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    EDUCATIONS {
+        int id PK
+        string level UK
+        string description
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    GRADES {
+        int id PK
+        string code UK
+        string name
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    RANKS {
+        int id PK
+        string code UK
+        string name
+        int grade_id FK
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    RELIGIONS {
+        int id PK
+        string name UK
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    VILLAGES {
+        int id PK
+        string name
+        string district
+        string province
+        boolean is_active
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    NOTIFICATIONS {
+        int id PK
+        int user_id FK
+        string title
+        text message
+        boolean is_read
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    USERS ||--o{ TRANSFERS : "has"
+    USERS ||--o{ POSITION_HISTORIES : "has"
+    USERS ||--o{ NOTIFICATIONS : "receives"
+    USERS }o--|| EDUCATIONS : "belongs to"
+    USERS }o--|| GRADES : "belongs to"
+    USERS }o--|| RANKS : "belongs to"
+    USERS }o--|| RELIGIONS : "belongs to"
+    GRADES ||--o{ RANKS : "contains"
+```
+
+</div>
+
+### 🔄 Sequence Diagram - Login & Mutasi Process
+
+<div align="center">
+
+```mermaid
+sequenceDiagram
+    participant U as 👤 User/Admin
+    participant C as 🖥️ Controller
+    participant M as 📊 Model
+    participant DB as 🗄️ Database
+    participant N as 🔔 Notification
+    
+    Note over U,N: Login Process
+    U->>C: POST /login (credentials)
+    C->>M: validate credentials
+    M->>DB: check user table
+    DB-->>M: user data
+    M-->>C: authentication result
+    C-->>U: redirect to dashboard
+    
+    Note over U,N: Add PNS Employee Process
+    U->>C: POST /admin/users (PNS data)
+    C->>M: validate & create user
+    M->>DB: insert user data
+    DB-->>M: user created
+    M-->>C: success response
+    C->>C: check employee_type === 'PNS'
+    C-->>U: redirect to mutasi masuk form
+    
+    Note over U,N: Mutasi Process
+    U->>C: POST /admin/mutasi/masuk
+    C->>M: create transfer record
+    M->>DB: insert transfer data
+    DB-->>M: transfer created
+    C->>C: check intra/inter district
+    C->>M: update user status if needed
+    M->>DB: update user table
+    C-->>U: redirect to riwayat mutasi
+    
+    U->>C: POST /admin/mutasi/riwayat
+    C->>M: update transfer with history
+    M->>DB: update transfer record
+    DB-->>M: history saved
+    C->>N: send notification
+    N->>DB: store notification
+    C-->>U: redirect to users list
+```
+
+</div>
+
+---
+
 ## 🛠️ Tech Stack
 
 <div align="center">
